@@ -1,0 +1,234 @@
+% Esempio per lo stile supsi
+\documentclass[twoside]{supsistudent} 
+
+% per settare noindent
+\setlength{\parindent}{0pt}
+
+
+% Crea un capitolo senza numerazione che pero` appare nell'indice %
+\newcommand{\problemchapter}[1]{%
+  \chapter*{#1}%
+  \addcontentsline{toc}{chapter}{#1}%
+\markboth{#1}{#1}
+}
+
+% Numerazione delle appendici secondo norma
+\addto\appendix{
+\renewcommand{\thesection}{\Alph{chapter}.\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}}
+
+\setcounter{secnumdepth}{5} 	%per avere più livelli nei titoli
+\setcounter{tocdepth}{5}		%per avere più livelli nell'indice
+
+
+\titolo{Nuovo algoritmo fotogrammetria - Azienda esterna REX SA}
+\studente{Terzi Edoardo}
+\relatore{Mattei Yari}
+\correlatore{-}
+\committente{REX SA}
+\corso{Ingegneria informatica (TP)}
+\modulo{C10051 Progetto di diploma}
+\anno{2019}
+
+
+
+\begin{document}
+
+\pagenumbering{alph}
+\maketitle
+\onehalfspacing
+\frontmatter
+
+
+\pagenumbering{roman}
+\tableofcontents
+% \listoffigures
+% \listoftables	
+
+\mainmatter % suddivide in capitolo 1,2,3 ecc.
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\chapter{Abstract}
+Questo progetto nasce dalla necessità dell'azienda REX di Mendrisio di creare un sistema per la progettazione di una 
+passerella posta fra i binari di un passo ferroviario. L'azienda in questine si occupa della produzione, della 
+progettazione e della vendita di molteplici articoli tecnici tra i quali le passerelle. \\
+
+Inizialmente il sistema, costituito da una piattaforma WEB, si occupava di ricevere in input un file DXF realizzato da un geometra 
+dell'azienda. Questo file doveva contenere le rilevazioni del geometra, il calcolo delle griglie che costiutiscono la passerella e 
+il disegno di queste. Infine la piattaforma generava un documento PDF contenente le istruzioni specifiche per il montaggio della passerella.
+Inoltre era possibile gestire i clieniti e gli ordini effettuati mediante la piattaforma. \\
+
+Attualmente, in seguito a un progetto di semestre svloto da due studenti della SUPSI, la piattaforma è migliorata mantenendo sempre 
+l'aspetto relativo alla gestione degli ordini, dei clienti e del PDF ma viene alleggerito il lavoro del geometra. Quest'ultimo deve inserire 
+nel file DXF solamente le misure effettuate e non deve calcolare a mano le griglie necessarie alla costruzione della passerella. \\
+
+L'obiettivo di questo progetto di diploma è quello di rendere ancora più semplice ed automatico l'utilizzo dell'intero sistema mediante l'utilizzo 
+di tecniche di processamento dell'immagine. In particolare si vuole realizzare un algoritmo che sia in grado di rilevare le misure necessarie alla costruzione
+della passerella partendo da una semplice foto della scena, quindi del passo ferroviario dove si vuole installare la passerella. \\
+
+\chapter{Progetto}
+
+\section{Descrizione}
+Rex SA è una società manifatturiera: uno dei molti prodotti commercializzati con il proprio marchio è relativo alla
+produzione di passaggi di servizio ferroviari in resina per l’attraversamento nelle stazioni ferroviarie e per uscite di
+sicurezza nelle gallerie di treno o metropolitana, articoli commercializzati con il marchio SWISSCROSS GFK
+La sfida del progetto risiede nell’implementazione di un sistema capace di creare e visualizzare in modalità aumentata
+(sopra una fotografia) un modello virtuale di un passaggio GFK partendo da un'immagine e attivando automaticamente i
+processi di produzione, consegna, installazione e, in seguito, di manutenzione del prodotto.
+Grazie alla soluzione proposta, REX sarà in grado rafforzare la propria posizione sul mercato svizzero e modificare il
+proprio modello di business per iniziare una vendita di servizi digitali a livello internazionale.
+Con il progetto si vuole incrementare la competitività dell’azienda delegando al cliente la progettazione e la visione virtuale
+del risultato finale in modalità “self-service” prima ancora di confermare l’ordine tramite la piattaforma cloud,
+automatizzando quindi ordinazione, produzione e delivery in un vero e proprio processo di Industria 4.0
+
+\section{Obiettivi}
+L'obiettivo principale è quello di sviluppare un algoritmo in grado di sfruttare le metriche conosciute (scarto binari e modelli
+3D di binari, traversine e viterie) per ricavare una matrice omografica in grado di calcolare il modello completo di passerella
+sulla base di una immagine.
+Allineamento e sovrapposizione dei modelli generati da più immagini verranno realizzati sfruttando appositi marcatori
+posizionati sul terreno.
+Obiettivo di questo algoritmo è quello di permettere l'estrazione dei punti caratteristici da un immagine (features) necessari
+al calcolo della forma e delle misure di una passerella GFK.
+
+\section{Compiti}
+Sviluppo di un algoritmo in grado di elaborare un immagine fotografica e ricavarne la relativa matrice omografa.
+Tramite questa matrice si potrà "addrizzare" l'immmagine e quindi calcolare le dimensioni reali della passaggio pedonale
+che dovrà quindi essere visualizzato in modalità "realtà aumentata" sopra la fotografia
+
+\chapter{Introduzione}
+
+\section{Premessa}
+
+\section{Contesto motivazionale}
+
+\section{Scopo}
+
+\chapter{Pianificazione}
+
+\section{Approccio iniziale}
+
+\section{Svlogimento del lavoro}
+
+\section{Diagramma di Gantt}
+
+\chapter{Analisi}
+
+\section{Requisiti}
+
+\section{Architettura}
+
+\section{Tecnologie}
+
+\chapter{Diagrammi}
+
+\section{Casi d'uso}
+
+\section{Sequenza}
+
+\chapter{Implementazione}
+
+\section{Linguaggi, librerie e framework}
+\subsection{Java}
+\subsection{Python}
+\subsection{OpenCV}
+
+\section{Identificazione punti e binari}
+
+\section{Calibratore}
+
+\section{Matrice Omografica}
+
+\section{Interfacciamento sistema pre esistente}
+
+\section{Gestione errori}
+
+\section{Testing}
+
+\chapter{Conclusioni}
+
+\section{Problematiche}
+
+\section{Sviluppi futuri}
+
+\section{Considerazioni finali}
+
+% \lipsum[23]
+% Esempio di citazione \cite{4538384}, \cite{5357331,4523385}, \cite{1705631}.
+% \footnote{Questa \`e una nota a pi\'e di pagina.}
+% \footnote{Questa \`e un'altra nota a pi\'e di pagina.}
+% \lipsum[23]
+
+% \subsection{Sotto sezione}
+
+% \texttt{Questo testo ha una spaziatura fissa}
+
+% \textit{Questo testo \`e in italico}
+
+% \textbf{Questo testo \`e in grassetto}
+
+% \textsc{Questo testo \`e in maiuscoletto}
+
+% \underline{Questo testo è sottolineato}
+
+% Citazione:
+% \begin{quote}
+% \lipsum[23]
+% \end{quote}
+
+% \chapter{Titolazione}
+
+% \lipsum[13]
+
+% \begin{itemize}
+%   \item Elemento A
+%   \item Elemento B
+%   \item Elemento C
+% \end{itemize}
+
+%\begin{itemize}
+%  \item[-] Elemento A
+%  \item[-] Elemento B
+%  \item[-] Elemento C
+%\end{itemize}
+%
+%\begin{enumerate}
+%  \item Alpha
+%  \item Beta
+%  \item Gamma
+%\end{enumerate}
+
+% \lipsum[23]
+%\section{Sezione}
+%
+%\lipsum[23]
+%
+%\subsection{Sotto sezione}
+%
+%Un po' di matematica: \newline
+%
+%\begin{math}
+%\frac{n!}{k!(n-k)!} = {n \choose k}
+%\end{math} \newline
+%
+%Un po' di matematica centrata:
+%
+%\begin{center}
+%\begin{math}
+%\frac{n!}{k!(n-k)!} = {n \choose k}
+%\end{math}
+%\end{center}
+%
+%Oppure con \$\$
+%
+%$$
+%\frac{n!}{k!(n-k)!} = {n \choose k}
+%$$
+%
+%Oppure anche direttamente nel testo ${1}\over{n}$ \\
+%
+%\lipsum[23]
+
+\bibliographystyle{unsrt}
+\bibliography{bibliografia}
+\end{document}
