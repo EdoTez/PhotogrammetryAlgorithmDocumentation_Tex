@@ -128,7 +128,7 @@ che dovrà quindi essere visualizzato in modalità "realtà aumentata" sopra la 
 \section{Tecnologie utilizzate}
 \subsection{Hardware}
 \subsubsection{PC per lo sviluppo}
-Portatile con Antergos Linux 64-bit:
+Portatile con Windows 10 Pro 64-bit:
 \begin{figure}[H]
   \center
   \includegraphics[scale=0.4]{images/pc.jpg}
@@ -219,7 +219,7 @@ rappresentati. L'obiettivo della trasformata di Hough è di identificare quali d
 contorni rappresentino una linea retta: se più pixel di Edge sono allineati, anche se non 
 connessi tra loro, viene individuata una linea nell'immagine.
 Per rappresentare una linea retta servono due parametri: un coefficiente angolare $m$ e 
-una ordinata all'origine $q$. Considerato un singolo punto, questo appartiene a infinite 
+una ordinata all'origine $c$. Considerato un singolo punto, questo appartiene a infinite 
 rette della forma $y=mx+q$, al variare di $m$ e $q$. Dobbiamo quindi stabilire quali coppie 
 $(m,q)$ siano in grado di individuare al meglio gli allineamenti di pixel.
 L'idea della trasformata di Hough è di rappresentare le rette nello spazio parametrico 
@@ -246,8 +246,8 @@ Quantizzando $\theta$ e utilizzando come spazio parametrico $\theta-r$ si risolv
 della finitezza della memoria.
 All'interno della libreria OpenCV la traformata di Hough si ottiene tramite la funzione:
 \begin{lstlisting}[language=Python]
-  def HoughLinesP(image, rho, theta, threshold, lines=None, 
-                  minLineLength=None, maxLineGap=None):
+def HoughLinesP(image, rho, theta, threshold, lines=None, 
+                minLineLength=None, maxLineGap=None):
 \end{lstlisting}
 \begin{itemize}
   \item \textbf{image:} puntatore all'immagine degli edge ottenuta tramite un algoritmo di 
@@ -277,8 +277,53 @@ nella libreria OpenCV). Invece per determinare la lunghezza minima delle linee a
 assumendo che un binario sia lungo quanto la larghezza o lunghezza della foto. Tuttavia, si può notare
 come un binario può essere identificato da più rette. Inoltre, nonostante il settaggio corretto dei parametri 
 è comunque possibile che vengano rilevate linee che non centrano nulla con i binari. L'approccio scelto
-per risolvere questi due problemi è di tipo matematico. Per identificare un binario con una sola retta 
+per risolvere questi due problemi è di tipo matematico. Per identificare un binario con una sola abbiamo deciso di raggupparle
+sfruttando l'area sottesa alla retta trovata, ovvero l'integrale, assumendo che due rette che rappresentano lo stesso binario 
+hanno un'area circa uguale. Infine per identificare solo i binari e non altre linee rette abbiamo rimosso 
+tutte le rette che si intersecano all'interno dello spazio definito dalla foto e per maggiore sicurezza l'immagine è anche stata 
+sfocata mediante un filtro gaussiano al fine di far rimanere in evidenza solo le linee dei binari.
+\begin{figure}[H]
+  \center
+  \includegraphics[scale=0.25]{images/houghLinesMerged.jpg}
+  \caption{Risultato filtraggi matematici}
+\end{figure}
+Il risultato ottenuto sembra promettere bene tuttavia, sfruttando questa tecnica si rischia di non fare distinzione tra 
+il lato interno o esterno del binario. Inoltre non è possibile determinare se la linea identifica il binari sullo stesso piano. 
+Come soluzione abbiamo deciso di sfruttare i bulloni delle traversine messe in risalto con del nastro rosso. Posizionandone anche solo 
+quattro è possibile identificare correttamente i binari. 
 \subsubsection{Punti}
+\begin{figure}[H]
+  \center
+  \includegraphics[scale=0.08]{images/points.jpg}
+  \caption{Rilevamento delle palline da tennis e dei nastri rossi}
+\end{figure}
+Per il rilevamento dei punti abbiamo sfruttato due diversi approci a seconda del tipo di punto da rilevare. Nonostante questo il punto di 
+partenza delle tecniche è il medesimo: il colore. Abbiamo effettuato un filtraggio sul colore in modo da avere il resto dell'immagine
+nera e solo i punti di nostro interesse in risalto. 
+\begin{figure}[H]
+  \center
+  \includegraphics[scale=0.08]{images/points1.jpg}
+  \caption{Filtraggio sul colore del nastro rosso}
+\end{figure}
+Nell'immagine sopra sono rimasti solo i nastri rossi, in questo modo ci è stato possibile ricercare i contorni delle regioni di colore rosso e 
+identificare così i 4 bulloni. Nel caso delle palline da tennis abbiamo risfruttato l'algoritmo di Hough mediante la seguente funzione:
+
+\begin{lstlisting}[language=Python]
+def HoughCircles(image, method, dp, minDist, circles=None, 
+                 param1=None, param2=None, minRadius=None, 
+                 maxRadius=None):
+\end{lstlisting}
+\begin{itemize}
+  \item \textbf{image:}
+  \item \textbf{method:} 
+  \item \textbf{dp:} 
+  \item \textbf{minDist:} 
+  \item \textbf{circles:} 
+  \item \textbf{param1:} 
+  \item \textbf{param2:}
+  \item \textbf{minRadius:}
+  \item \textbf{maxRadius:}
+\end{itemize}
 \section{Calibratore}
 
 \section{Matrice Omografica}
