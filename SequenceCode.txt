@@ -1,0 +1,22 @@
+Main->Main:ReadVideo()
+Main->ExtractBestFrame:<VideoCapture> video
+ExtractBestFrame-->Main:<Image> bestFrame
+Main->FindYellowMarkers:<Image> bestFrame
+FindYellowMarkers-->Main:<List> points
+Main->Main:CutFrame()
+Main->FindYellowMarkers:<Image> frameCutted
+FindYellowMarkers-->Main:<List> points
+Main->FindRedRailways:<Image> frameCutted
+FindRedRailways-->Main:<List<StraightLine>> railways
+Main->FindChessBoard:<Image> frameCutted
+FindChessBoard-->Main: <Array> sourcePoints
+Main->Main:CalculateDestinationPoints()
+Main->FindHomography:<Array> sourcePoints, <Array> destinationPoints
+FindHomography-->Main:<Matrix> homography
+Main->Main:WarpPerspective()
+Main->Main:ConvertPixelToMm()
+Main->PrintResultsPoint:<List> yellowMarkers, <List<StraightLine>> railways
+Main->Main:ReadGridPoints() #from java
+Main->DrawGrids:<List> gridPoints, frameCutted
+DrawGrids-->Main:<Image> result
+Main->Main:WarpPerspective()
